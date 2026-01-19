@@ -57,13 +57,7 @@ enum {
 };
 
 enum {
-  PRINTER_MTP2=0,
-  PRINTER_MTP3,
-  PRINTER_CAT,
-  PRINTER_PERIPAGEPLUS,
-  PRINTER_PERIPAGE,
-  PRINTER_FOMEMO,
-  PRINTER_COUNT
+  PRINTER_X18_9556 = 0
 };
 
 // Proportional font data taken from Adafruit_GFX library
@@ -126,13 +120,6 @@ int tpPrintCustomText(GFXfont *pFont, int x, char *szMsg);
 //
 void tpWriteRawData(uint8_t *pData, int iLen);
 
-// Select one of 2 available text fonts along with attributes
-// FONT_12x24 or FONT_9x17
-// Each option is either 0 (disabled) or 1 (enabled)
-// These are the text attributes offered by the standard printer spec
-//
-void tpSetFont(int iFont, int iUnderline, int iDoubleWide, int iDoubleTall, int iEmphasized);
-
 //
 // Provide a back buffer for your printer graphics
 // This allows you to manage the RAM used on
@@ -141,25 +128,8 @@ void tpSetFont(int iFont, int iUnderline, int iDoubleWide, int iDoubleTall, int 
 // So a 384x384 buffer would need to be 48x384 = 18432 bytes
 //
 void tpSetBackBuffer(uint8_t *pBuffer, int iWidth, int iHeight);
-//
-// Print plain text immediately
-//
-// Pass a C-string (zero terminated char array)
-// If the text doesn't reach the end of the line
-// it will not be printed until the printer receives
-// a CR (carriage return) or new text which forces
-// it to wrap around
-//
-int tpPrint(char *pString);
-//
-// Print plain text immediately
-// Pass a C-string (zero terminated char array)
-// A CR (carriage return) will be added at the end
-// to cause the printer to print the text and advance
-// the paper one line
-//
-int tpPrintLine(char *pString);
 
+//
 #define MODE_WITH_RESPONSE 1
 #define MODE_WITHOUT_RESPONSE 0
 //
@@ -169,10 +139,6 @@ int tpPrintLine(char *pString);
 // every packet. The default is to wait for a response for each write
 //
 void tpSetWriteMode(uint8_t bWriteMode);
-//
-// Draw text into the graphics buffer
-//
-int tpDrawText(int x, int y, char *pString, int iFontSize, int bInvert);
 //
 // Load a 1-bpp Windows bitmap into the back buffer
 // Pass the pointer to the beginning of the BMP file
@@ -202,6 +168,10 @@ void tpPrintBufferSide(void);
 //
 void tpDrawLine(int x1, int y1, int x2, int y2, uint8_t ucColor);
 //
+// Draw text into the graphics buffer
+//
+int tpDrawText(int x, int y, char *szMsg, int iFontSize, int bInvert);
+//
 // Scan for compatible printers
 // returns true if found
 // and stores the printer address internally
@@ -211,33 +181,15 @@ void tpDrawLine(int x1, int y1, int x2, int y2, uint8_t ucColor);
 //
 int tpScan(const char *szName, int iSeconds);
 //
+// Parameterless version
+// finds X18-9556 printer automatically
+//
+int tpScan(void);
+//
 // connect to a printer with a macaddress
 // returns 1 if successful, 0 for failure
 //
 int tpConnect(const char *szMacAddress);
-//
-// Set the text and barcode alignment
-// Use ALIGN_LEFT, ALIGN_CENTER or ALIGN_RIGHT
-//
-void tpAlign(uint8_t ucAlign);
-//
-// Print a 2D (QR) barcode
-//
-void tpQRCode(char *szText);
-//
-// Print a 2D (QR) barcode
-// iSize = starting from 1 / standard is 3
-//
-void tpQRCode(char *szText, int iSize);
-//
-// Print a 1D barcode
-//
-void tp1DBarcode(int iType, int iHeight, char *szData, int iTextPos);
-//
-// Parameterless version
-// finds supported printers automatically
-//
-int tpScan(void);
 //
 // After a successful scan, connect to the printer
 // returns 1 if successful, 0 for failure

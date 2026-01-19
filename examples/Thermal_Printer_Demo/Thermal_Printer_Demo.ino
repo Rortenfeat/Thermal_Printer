@@ -359,27 +359,6 @@ void setup() {
     {
       Serial.println((char *)"Connected!, printing graphics");
       tpPrintBuffer();
-      Serial.println((char *)"Testing plain text printing");
-      tpSetFont(0, 0, 0, 0, 0);
-      // for GOOJPRT PT-210
-      // uint8_t font_a_cmd[] = {0x1b,'M',0x00};
-      // tpWriteRawData(&font_a_cmd[0],sizeof(font_a_cmd));
-      tpPrint((char *)"12x24 plain text\r");
-      // for GOOJPRT PT-210
-      // uint8_t font_b_cmd[] = {0x1b,'M',0x01};
-      // tpWriteRawData(&font_b_cmd[0],sizeof(font_b_cmd));
-      tpSetFont(1, 0, 0, 0, 0);
-      tpPrint((char *)"9x17 plain text\r");
-      tpSetFont(1, 1, 0, 0, 0);
-      tpPrint((char *)"Underlined\r");
-      tpSetFont(1, 0, 1, 0, 0);
-      tpPrint((char *)"Double Wide\r");
-      tpSetFont(1, 0, 0, 1, 0);
-      tpPrint((char *)"Double Tall\r");
-      tpSetFont(1, 0, 1, 1, 0);
-      tpPrint((char *)"Double Tall+Wide\r");
-      tpSetFont(1, 0, 1, 1, 1);
-      tpPrint((char *)"Double Tall+Wide + emphasized\r");
       Serial.println((char *)"Disconnecting");
       tpDisconnect();
       Serial.println((char *)"Done!");
